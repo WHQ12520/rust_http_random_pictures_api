@@ -10,6 +10,7 @@
  - std::fs::{read,read_to_string}
  - rand::Rng
  - std::env
+ - tokio
 
 ## 配置
 
