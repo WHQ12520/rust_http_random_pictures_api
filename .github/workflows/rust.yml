@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     env:
-      repo_name: rust_http_random_pictures_api
+      program_name: rust_http_random_pictures_api
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
@@ -27,7 +27,7 @@ jobs:
           #处理环境变量
           arch=${{ matrix.arch }}
           os=$RUNNER_OS
-          repo_name=${{ env.repo_name }}
+          program_name=${{ env.program_name }}
           
           #处理不同系统架构差异
           if [ "$os" == "Linux" ]; then
@@ -78,10 +78,10 @@ jobs:
 
           #复制指定编译产物到output文件夹
           mkdir -p output
-          cp target/${target}/release/rust_http_random_pictures_api${suffix} output
+          cp target/${target}/release/${program_name}${suffix} output/${program_name}_${os}_${arch}${suffix}
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.repo_name }}_${{ matrix.os }}_${{ matrix.arch }}
+          name: ${{ env.program_name }}_${{ matrix.os }}_${{ matrix.arch }}
           path: output/*
